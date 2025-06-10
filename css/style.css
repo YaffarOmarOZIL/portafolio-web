@@ -1,0 +1,54 @@
+/* --- Variables de Tema "Zorrito Elegante" --- */
+:root {
+    --color-principal: #D97706; /* Naranja quemado */
+    --color-fondo: #111827;     /* Gris oscuro / Azul noche */
+    --color-texto: #F3F4F6;     /* Blanco crema */
+    --color-texto-sec: #9CA3AF; /* Gris claro */
+    --fuente-titulos: 'Lora', serif;
+    --fuente-cuerpo: 'Inter', sans-serif;
+}
+
+/* --- Reseteo y Estilos Base --- */
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-cuerpo);
+    margin: 0;
+    -webkit-font-smoothing: antialiased; /* Mejora la legibilidad */
+}
+
+h1, h2, h3 {
+    font-family: var(--fuente-titulos);
+    color: var(--color-principal);
+}
+
+/* --- Estilos de las Tarjetas de Proyecto --- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.project-card {
+    background-color: #1F2937; /* Un gris un poco más claro */
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-card h3, .project-card p {
+    padding: 0 1.5rem;
+}
