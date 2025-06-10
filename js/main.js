@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { gsap } from "gsap"; // <--- AÑADIR ESTA LÍNEA
+import { ScrollTrigger } from "gsap/ScrollTrigger"; // <--- AÑADIR ESTA 
 
 // Registrar el plugin de ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
