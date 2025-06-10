@@ -1,51 +1,121 @@
-// Espera a que todo el contenido del DOM esté cargado
-document.addEventListener('DOMContentLoaded', () => {
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-    // --- Animación de entrada para el título ---
-    gsap.from(".hero-title", {
-        duration: 1.5,
-        y: 50, // Mover desde 50px abajo
-        opacity: 0,
-        ease: "power3.out",
-        delay: 0.5
-    });
+// Registrar el plugin de ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
 
-    // --- Animaciones interactivas para los proyectos ---
-    const projectCards = document.querySelectorAll('.project-card');
+// --- 1. CONFIGURACIÓN DE LA ESCENA 3D ---
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({
+    canvas: document.querySelector('#bg'),
+    alpha: true // Fondo transparente para ver el CSS
+});
 
-    projectCards.forEach(card => {
-        const animationType = card.dataset.animationType;
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
+camera.position.set(0, 0.5, 4);
 
-        card.addEventListener('mouseenter', () => {
-            // Animación común para todas las tarjetas
-            gsap.to(card.querySelector('img'), {
-                duration: 0.5,
-                scale: 1.05,
-                ease: 'power2.out'
-            });
+// --- 2. ILUMINACIÓN ---
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+scene.add(ambientLight);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+directionalLight.position.set(5, 10, 7.5);
+scene.add(directionalLight);
 
-            // Animación ESPECÍFICA basada en el data-attribute
-            if (animationType === 'tech-glow') {
-                // Ejemplo: hacer que el borde brille con el color principal
-                gsap.to(card, { 
-                    duration: 0.5, 
-                    boxShadow: `0 0 25px ${getComputedStyle(document.documentElement).getPropertyValue('--color-principal')}` 
-                });
-            } else if (animationType === 'data-viz') {
-                // Podrías tener pequeños elementos SVG dentro que se animan
-                // simulando una gráfica. ¡Aquí la creatividad es el límite!
+// --- 3. CARGADOR DEL MODELO 3D (ZORRO) ---
+const loader = new GLTFLoader();
+let fox;
+
+loader.load(
+    'assets/models/zorro.glb',
+    function (gltf) {
+        fox = gltf.scene;
+        fox.scale.set(0.02, 0.02, 0.02); // Ajustar escala del modelo
+        fox.position.y = -1.2; // Ajustar posición vertical
+        scene.add(fox);
+    },
+    undefined,
+    (error) => console.error('Error al cargar el modelo 3D:', error)
+);
+
+// --- 4. INTERACTIVIDAD CON EL MOUSE ---
+let mouseX = 0;
+document.addEventListener('mousemove', (event) => {
+    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+});
+
+// --- 5. BUCLE DE ANIMACIÓN ---
+function animate() {
+    requestAnimationFrame(animate);
+
+    // Animación sutil del zorro siguiendo el mouse
+    if (fox) {
+        fox.rotation.y += (mouseX * 0.8 - fox.rotation.y) * 0.05;
+    }
+
+    renderer.render(scene, camera);
+}
+animate();
+
+// --- 6. MANEJAR REDIMENSIONAMIENTO ---
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// --- 7. ANIMACIONES CON GSAP Y SCROLLTRIGGER ---
+// Animación de entrada del Hero
+gsap.to(".animate-hero", {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    stagger: 0.2,
+    ease: "power3.out",
+    delay: 0.5
+});
+
+// Animaciones al hacer scroll
+const sections = document.querySelectorAll('.content-section');
+sections.forEach(section => {
+    const sectionTitle = section.querySelector('.section-title');
+    const elementsToAnimate = section.querySelectorAll('.project-card, .skill-category, form');
+
+    // Animar título de la sección
+    if(sectionTitle) {
+        gsap.fromTo(sectionTitle, 
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                }
             }
-        });
-
-        card.addEventListener('mouseleave', () => {
-            // Revertir las animaciones
-            gsap.to(card.querySelector('img'), {
-                duration: 0.5,
-                scale: 1,
-                ease: 'power2.out'
-            });
-            gsap.to(card, { duration: 0.5, boxShadow: 'none' });
-        });
-    });
-
+        );
+    }
+    
+    // Animar contenido de la sección
+    if(elementsToAnimate.length > 0) {
+        gsap.fromTo(elementsToAnimate,
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 70%",
+                }
+            }
+        );
+    }
 });

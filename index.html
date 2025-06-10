@@ -3,31 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Metas de SEO y Seguridad -->
-    <title>Tu Nombre | Desarrollador Web</title>
-    <meta name="description" content="Portafolio de [Tu Nombre], un desarrollador web apasionado por crear experiencias únicas.">
-    
-    <!-- Política de Seguridad de Contenido (CSP) - ¡MUY IMPORTANTE! -->
-    <!-- Esto le dice al navegador de dónde es seguro cargar contenido. -->
-    <!-- Lo ajustaremos al final, pero es bueno tenerlo presente. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
 
-    <!-- Estilos -->
-    <link rel="stylesheet" href="css/style.css">
+    <!-- SEO y Metas de Presentación -->
+    <title>David Neuenschwander | Desarrollador y Creador de Experiencias Digitales</title>
+    <meta name="description" content="Portafolio de David Neuenschwander, Estudiante de Ingeniería de Sistemas especializado en desarrollo Web, Unity, VR y soluciones de software innovadoras.">
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+
+    <!-- Política de Seguridad de Contenido (CSP) - ¡CRUCIAL! -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://*.netlify.app;">
+    
+    <!-- Librerías de Scripts (Three.js via importmap) -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.module.js",
+                "three/addons/": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <!-- Fuentes y Estilos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- Icono de la pestaña (favicon) - ¡Usa un logo de zorrito! -->
-    <link rel="icon" href="assets/icons/favicon-fox.svg" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Canvas para el fondo 3D -->
+    <div id="canvas-container">
+        <canvas id="bg"></canvas>
+    </div>
 
-    <!-- Header con navegación -->
+    <!-- Header con Navegación -->
     <header class="main-header">
+        <a href="#" class="logo">DN</a>
         <nav>
             <a href="#proyectos" class="nav-link">Proyectos</a>
+            <a href="#habilidades" class="nav-link">Habilidades</a>
             <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
             <a href="#contacto" class="nav-link">Contacto</a>
         </nav>
@@ -36,60 +48,136 @@
     <main>
         <!-- 1. Sección de Presentación (Hero) -->
         <section id="hero" class="hero-section">
-            <h1 class="hero-title">Hola, soy [Tu Nombre]</h1>
-            <p class="hero-subtitle">Creador de Experiencias Digitales con un Toque Astuto.</p>
-            <!-- Aquí podemos poner una animación de un zorro que aparece -->
+            <div class="hero-content">
+                <h1 class="hero-title animate-hero">David Neuenschwander</h1>
+                <p class="hero-subtitle animate-hero">Desarrollador Full-Stack y Creador de Experiencias en Unity y VR</p>
+            </div>
+            <a href="#sobre-mi" class="scroll-down-indicator">
+                <span></span>
+            </a>
         </section>
 
-        <!-- 2. Sección de Proyectos -->
-        <section id="proyectos" class="projects-section">
-            <h2>Mis Proyectos</h2>
+        <!-- 2. Sección Sobre Mí -->
+        <section id="sobre-mi" class="content-section">
+            <h2 class="section-title">Sobre Mí</h2>
+            <p class="about-text">
+                Soy un apasionado estudiante de Ingeniería en Sistemas Informáticos de la Universidad del Valle en La Paz, con un fuerte enfoque en la programación y creación de soluciones digitales. Mi especialidad es el **desarrollo en Unity y páginas Web**, donde combino mi creatividad y habilidades técnicas para construir desde videojuegos y simuladores en Realidad Virtual (VR) hasta complejas páginas administrativas, dashboards y sistemas móviles. Me encanta enfrentar retos y transformar ideas en productos funcionales y elegantes.
+            </p>
+        </section>
+
+        <!-- 3. Sección de Proyectos -->
+        <section id="proyectos" class="content-section">
+            <h2 class="section-title">Proyectos Destacados</h2>
             <div class="projects-grid">
-                <!-- Proyecto 1 -->
-                <div class="project-card" data-animation-type="tech-glow">
-                    <img src="assets/images/proyecto1.jpg" alt="Descripción de la imagen del proyecto 1">
-                    <h3>Proyecto Alpha</h3>
-                    <p>Una plataforma de e-commerce con un diseño innovador.</p>
-                    <div class="tech-stack">
-                        <!-- Pon aquí los iconos de las tecnologías -->
+                
+                <div class="project-card">
+                    <img src="assets/images/proyecto-optica.jpg" alt="Sistema de Gestión para Óptica">
+                    <div class="card-content">
+                        <h3>Sistema de Gestión y Analítica para Óptica</h3>
+                        <p>Sistema web y móvil para la gestión de inventarios, pedidos, clientes, empleados y una página de datos de analítica sobre ventas.</p>
+                        <div class="tech-stack"><span>Web</span><span>Móvil</span><span>Analítica</span></div>
+                        <div class="project-links"><a href="#" target="_blank">Ver Demo</a><a href="#" target="_blank">Código</a></div>
                     </div>
                 </div>
-                <!-- Proyecto 2 -->
-                <div class="project-card" data-animation-type="data-viz">
-                    <img src="assets/images/proyecto2.jpg" alt="Descripción de la imagen del proyecto 2">
-                    <h3>Dashboard Analítico</h3>
-                    <p>Visualización de datos en tiempo real para startups.</p>
-                    <div class="tech-stack"></div>
+
+                <div class="project-card">
+                    <img src="assets/images/proyecto-vr.jpg" alt="Simulador VR de trabajo">
+                    <div class="card-content">
+                        <h3>Simulador VR de Trabajo Empresarial</h3>
+                        <p>Videojuego simulador usando VR que recrea trabajos de oficina con dificultad agregada y escenarios de estrés.</p>
+                        <div class="tech-stack"><span>Unity</span><span>VR</span><span>C#</span></div>
+                        <div class="project-links"><a href="#" target="_blank">Ver Demo</a><a href="#" target="_blank">Código</a></div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="assets/images/proyecto-esp32.jpg" alt="Sistema de Geolocalización con ESP32">
+                    <div class="card-content">
+                        <h3>Sistema de Geolocalización con ESP32</h3>
+                        <p>Aparato rastreador con ESP32 que muestra datos de ubicación en tiempo real en una página web.</p>
+                        <div class="tech-stack"><span>ESP32</span><span>IoT</span><span>JavaScript</span></div>
+                        <div class="project-links"><a href="#" target="_blank">Ver Demo</a><a href="#" target="_blank">Código</a></div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <img src="assets/images/proyecto-sweetfit.jpg" alt="Sistema de Inventario SweetFit">
+                    <div class="card-content">
+                        <h3>Sistema de Inventario en SweetFit</h3>
+                        <p>Sistema de inventario y pedidos personalizado para automatizar las ventas de la empresa Sweet Fit.</p>
+                        <div class="tech-stack"><span>Web</span><span>Backend</span><span>Base de Datos</span></div>
+                        <div class="project-links"><a href="#" target="_blank">Ver Demo</a><a href="#" target="_blank">Código</a></div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="assets/images/proyecto-inventario.jpg" alt="App de visualización de Inventario">
+                    <div class="card-content">
+                        <h3>App de Visualización de Inventario</h3>
+                        <p>App móvil Android para registro de clientes y visualización intuitiva de datos de inventario en la nube.</p>
+                        <div class="tech-stack"><span>Android</span><span>Kotlin</span><span>Cloud</span></div>
+                        <div class="project-links"><a href="#" target="_blank">Ver Demo</a><a href="#" target="_blank">Código</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Sección de Habilidades -->
+        <section id="habilidades" class="content-section">
+            <h2 class="section-title">Habilidades Técnicas</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Game Dev & 3D</h3>
+                    <div class="skills-list"><span>Unity</span><span>C#</span><span>Realidad Virtual (VR)</span><span>Realidad Aumentada (AR)</span><span>Modelado 3D</span></div>
+                </div>
+                <div class="skill-category">
+                    <h3>Web y Móvil</h3>
+                    <div class="skills-list"><span>JavaScript</span><span>HTML5/CSS3</span><span>PHP</span><span>Python</span><span>Kotlin (Android)</span></div>
+                </div>
+                <div class="skill-category">
+                    <h3>Backend y Datos</h3>
+                    <div class="skills-list"><span>Bases de Datos</span><span>Oracle</span><span>AWS</span><span>Azure</span></div>
+                </div>
+                <div class="skill-category">
+                    <h3>Otras Competencias</h3>
+                    <div class="skills-list"><span>SCRUM</span><span>SQA</span><span>Linux</span><span>Diseño Gráfico</span><span>Arduino (C)</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. Sección Sobre Mí -->
-        <section id="sobre-mi">
-            <!-- Tu texto aquí -->
-        </section>
-        
-        <!-- 4. Sección de Contacto (Segura con Netlify) -->
-        <section id="contacto">
-            <h2>Hablemos</h2>
+        <!-- 5. Sección de Contacto -->
+        <section id="contacto" class="content-section">
+            <h2 class="section-title">Hablemos</h2>
+            <p class="contact-subtitle">¿Tienes un proyecto en mente o quieres construir algo increíble? ¡Contáctame!</p>
             <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                <!-- Campo oculto para engañar a los bots -->
-                <p class="hidden">
-                    <label>No llenes esto si eres humano: <input name="bot-field"></label>
-                </p>
                 <input type="hidden" name="form-name" value="contacto">
-                
-                <input type="text" name="name" placeholder="Tu nombre" required>
-                <input type="email" name="email" placeholder="Tu email" required>
-                <textarea name="message" placeholder="Tu mensaje" required></textarea>
-                <button type="submit">Enviar Mensaje</button>
+                <p class="hidden"><label>No llenes esto: <input name="bot-field"></label></p>
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Tu Nombre" required>
+                    <input type="email" id="email" name="email" placeholder="Tu Email" required>
+                </div>
+                <textarea id="message" name="message" placeholder="Tu Mensaje" rows="5" required></textarea>
+                <button type="submit" class="cta-button">Enviar Mensaje</button>
             </form>
         </section>
     </main>
 
-    <!-- Scripts -->
-    <!-- GSAP desde un CDN (Red de Distribución de Contenido) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="js/main.js"></script>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://github.com/tu-usuario" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/tu-usuario" target="_blank">LinkedIn</a>
+            </div>
+            <p>© 2024 David Neuenschwander. Todos los derechos reservados.</p>
+            <p class="credits">Modelo 3D del zorro por <a href="https://sketchfab.com/pixel-perfect" target="_blank">Pixel</a> bajo CC Attribution.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts de Animación -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

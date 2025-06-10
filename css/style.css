@@ -1,54 +1,333 @@
 /* --- Variables de Tema "Zorrito Elegante" --- */
 :root {
-    --color-principal: #D97706; /* Naranja quemado */
-    --color-fondo: #111827;     /* Gris oscuro / Azul noche */
-    --color-texto: #F3F4F6;     /* Blanco crema */
-    --color-texto-sec: #9CA3AF; /* Gris claro */
+    --color-principal: #D97706; /* Naranja quemado / Zorro */
+    --color-fondo: #030712;     /* Casi negro, azulado */
+    --color-fondo-sec: #111827; /* Azul/gris oscuro para tarjetas */
+    --color-texto: #F9FAFB;     /* Blanco roto */
+    --color-texto-sec: #9CA3AF; /* Gris para subtítulos */
     --fuente-titulos: 'Lora', serif;
     --fuente-cuerpo: 'Inter', sans-serif;
+    --header-height: 70px;
 }
 
 /* --- Reseteo y Estilos Base --- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
     background-color: var(--color-fondo);
     color: var(--color-texto);
     font-family: var(--fuente-cuerpo);
     margin: 0;
-    -webkit-font-smoothing: antialiased; /* Mejora la legibilidad */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3 {
+/* --- Lienzo 3D como Fondo Fijo --- */
+#canvas-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    z-index: -1;
+}
+
+/* --- Header con Efecto de Cristal --- */
+.main-header {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    background: rgba(17, 24, 39, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 100;
+}
+.logo {
     font-family: var(--fuente-titulos);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-principal);
+    text-decoration: none;
+}
+.main-header nav a {
+    color: var(--color-texto-sec);
+    text-decoration: none;
+    margin-left: 2rem;
+    transition: color 0.3s ease;
+}
+.main-header nav a:hover {
     color: var(--color-principal);
 }
 
-/* --- Estilos de las Tarjetas de Proyecto --- */
+/* --- Estructura Principal y Secciones --- */
+main {
+    position: relative;
+    z-index: 1;
+}
+.content-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 2rem;
+    background: var(--color-fondo); /* Fondo sólido para tapar el 3D y mejorar legibilidad */
+}
+.section-title {
+    font-family: var(--fuente-titulos);
+    font-size: 2.5rem;
+    color: var(--color-principal);
+    text-align: center;
+    margin-bottom: 3rem;
+    opacity: 0; /* Para animación de entrada */
+}
+
+/* --- Sección Hero --- */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 1rem;
+    background: transparent; /* Permite ver el canvas 3D */
+}
+.hero-title {
+    font-family: var(--fuente-titulos);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    margin: 0;
+    color: var(--color-texto);
+    text-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
+.hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--color-texto-sec);
+    margin: 1rem 0 0;
+    max-width: 600px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+.animate-hero {
+    opacity: 0;
+    transform: translateY(30px);
+}
+.scroll-down-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 40px;
+    border: 2px solid var(--color-texto-sec);
+    border-radius: 12px;
+}
+.scroll-down-indicator span {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 8px;
+    background-color: var(--color-texto-sec);
+    border-radius: 2px;
+    animation: scroll-pulse 2s infinite;
+}
+@keyframes scroll-pulse {
+    0% { transform: translate(-50%, 0); opacity: 1; }
+    100% { transform: translate(-50%, 12px); opacity: 0; }
+}
+
+/* --- Sección Sobre Mí --- */
+.about-text {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    text-align: center;
+    color: var(--color-texto-sec);
+}
+.about-text strong {
+    color: var(--color-principal);
+    font-weight: 500;
+}
+
+/* --- Proyectos --- */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
-    padding: 2rem;
 }
-
 .project-card {
-    background-color: #1F2937; /* Un gris un poco más claro */
-    border-radius: 8px;
+    background: var(--color-fondo-sec);
+    border-radius: 12px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0; /* Para animación */
 }
-
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.3);
 }
-
 .project-card img {
-    width: 100%;
-    height: 200px;
+    width: 100%; height: 200px;
     object-fit: cover;
 }
+.card-content { padding: 1.5rem; }
+.card-content h3 {
+    margin: 0 0 0.5rem;
+    font-family: var(--fuente-cuerpo);
+    font-weight: 700;
+    color: var(--color-texto);
+}
+.card-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--color-texto-sec);
+    min-height: 65px;
+}
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.tech-stack span {
+    background-color: rgba(217, 119, 6, 0.1);
+    color: var(--color-principal);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.project-links {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+.project-links a {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+.project-links a:hover { color: var(--color-principal); }
 
-.project-card h3, .project-card p {
-    padding: 0 1.5rem;
+
+/* --- Habilidades --- */
+.skills-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+.skill-category {
+    background: var(--color-fondo-sec);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0; /* Para animación */
+}
+.skill-category h3 {
+    margin: 0 0 1rem;
+    color: var(--color-principal);
+    font-family: var(--fuente-cuerpo);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+.skills-list span {
+    background-color: var(--color-fondo);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* --- Formulario de Contacto --- */
+.contact-subtitle {
+    text-align: center;
+    color: var(--color-texto-sec);
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+form {
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0; /* Para animación */
+}
+.hidden { display: none; }
+.form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+form input, form textarea {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-fondo-sec);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--color-texto);
+    font-family: var(--fuente-cuerpo);
+    font-size: 1rem;
+}
+form input:focus, form textarea:focus {
+    outline: none;
+    border-color: var(--color-principal);
+}
+.cta-button {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.cta-button:hover {
+    background-color: #FBBF24; /* Naranja más claro */
+}
+
+/* --- Footer --- */
+.main-footer {
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-texto-sec);
+    font-size: 0.9rem;
+    background-color: var(--color-fondo);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.social-links {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+.social-links a, .credits a {
+    color: var(--color-texto-sec);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.social-links a:hover, .credits a:hover {
+    color: var(--color-principal);
+}
+.credits { font-size: 0.8rem; opacity: 0.7; }
+
+/* --- Media Queries para Diseño Responsivo --- */
+@media (max-width: 768px) {
+    .section-title { font-size: 2rem; }
+    .skills-container, .form-group { grid-template-columns: 1fr; }
+    .main-header nav { display: none; } /* Simplificar en móvil o implementar menú hamburguesa */
 }
