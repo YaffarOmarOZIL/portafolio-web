@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Gracias! - David Neuenschwander</title>
+    <!-- Usamos el mismo CSS para mantener el estilo -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos específicos para esta página de agradecimiento -->
+    <style>
+        .thank-you-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            padding: 2rem;
+        }
+        .thank-you-section h1 {
+            font-family: var(--fuente-titulos);
+            font-size: 3rem;
+            color: var(--color-principal);
+            margin-bottom: 1.5rem;
+        }
+        .thank-you-section p {
+            font-size: 1.2rem;
+            color: var(--color-texto-sec);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
+        .back-link {
+            padding: 1rem 2rem;
+            background-color: var(--color-principal);
+            color: var(--color-fondo);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .back-link:hover {
+            background-color: var(--color-principal-brillo);
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="thank-you-section">
+            <h1>¡Mensaje Recibido!</h1>
+            <p>Muchas gracias por contactarme. He recibido tu mensaje y me pondré en contacto contigo a la brevedad posible.</p>
+            <a href="index.html" class="back-link">Volver al Inicio</a>
+        </section>
+    </main>
+</body>
+</html>
