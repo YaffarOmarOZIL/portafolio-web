@@ -30,11 +30,11 @@ const loader = new GLTFLoader();
 let fox;
 
 loader.load(
-    'assets/models/zorro.glb',
+    'assets/models/low_poly_fox_model.glb', 
     function (gltf) {
         fox = gltf.scene;
-        fox.scale.set(0.02, 0.02, 0.02); // Ajustar escala del modelo
-        fox.position.y = -1.2; // Ajustar posición vertical
+        fox.scale.set(1.5, 1.5, 1.5); // ¡OJO! La escala puede variar, ajústala
+        fox.position.y = -1.2;
         scene.add(fox);
     },
     undefined,

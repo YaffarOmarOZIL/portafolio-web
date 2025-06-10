@@ -151,6 +151,15 @@ main {
     color: var(--color-principal);
     font-weight: 500;
 }
+.about-banner {
+    width: 100%;
+    max-width: 988px; /* Ancho de tu imagen */
+    height: auto;
+    border-radius: 12px;
+    margin: 0 auto 2rem auto;
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
 /* --- Proyectos --- */
 .projects-grid {
@@ -190,8 +199,17 @@ main {
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 1rem; /* Aumentar espacio para los iconos */
     margin-top: 1rem;
+    align-items: center;
+    color: var(--color-texto-sec);
+}
+.tech-stack iconify-icon {
+    font-size: 1.5rem; /* Hacer los iconos más grandes */
+    transition: color 0.3s ease;
+}
+.project-card:hover .tech-stack iconify-icon {
+    color: var(--color-principal);
 }
 .tech-stack span {
     background-color: rgba(217, 119, 6, 0.1);
