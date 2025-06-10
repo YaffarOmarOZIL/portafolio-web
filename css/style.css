@@ -1,263 +1,277 @@
-/* --- Variables de Tema "Zorrito Elegante" --- */
+/* ---
+Tabla de Contenidos
+1. Variables y Estilos Globales
+2. Header y Footer (Componentes Compartidos)
+3. Layout Principal y Secciones
+4. Estilos de la Página Principal (index.html)
+   - Hero Section
+   - Proyectos, Habilidades, Contacto
+5. Estilos de las Páginas de Detalle de Proyectos
+6. Animaciones y Clases de Utilidad
+7. Media Queries (Diseño Responsivo)
+--- */
+
+/* ---------------------------------- */
+/* 1. VARIABLES Y ESTILOS GLOBALES    */
+/* ---------------------------------- */
 :root {
-    --color-principal: #D97706; /* Naranja quemado / Zorro */
-    --color-fondo: #030712;     /* Casi negro, azulado */
-    --color-fondo-sec: #111827; /* Azul/gris oscuro para tarjetas */
-    --color-texto: #F9FAFB;     /* Blanco roto */
-    --color-texto-sec: #9CA3AF; /* Gris para subtítulos */
+    --color-principal: #D97706;
+    --color-principal-brillo: #FBBF24;
+    --color-fondo: #030712;
+    --color-fondo-sec: #111827;
+    --color-texto: #F9FAFB;
+    --color-texto-sec: #9CA3AF;
     --fuente-titulos: 'Lora', serif;
     --fuente-cuerpo: 'Inter', sans-serif;
-    --header-height: 70px;
+    --transition-fast: 0.3s ease;
 }
 
-/* --- Reseteo y Estilos Base --- */
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background-color: var(--color-fondo);
     color: var(--color-texto);
     font-family: var(--fuente-cuerpo);
-    margin: 0;
+    background-color: var(--color-fondo);
+    /* Fondo de gradiente sutilmente animado */
+    background-image: linear-gradient(135deg, var(--color-fondo), var(--color-fondo-sec), var(--color-fondo));
+    background-size: 200% 200%;
+    animation: gradient-flow 15s ease infinite;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- Lienzo 3D como Fondo Fijo --- */
-#canvas-container {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100vh;
-    z-index: -1;
+@keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-/* --- Header con Efecto de Cristal --- */
+
+/* ---------------------------------- */
+/* 2. HEADER Y FOOTER                 */
+/* ---------------------------------- */
 .main-header {
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: var(--header-height);
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5%;
-    background: rgba(17, 24, 39, 0.5);
+    padding: 1rem 5%;
+    background: rgba(17, 24, 39, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 100;
+    transition: background var(--transition-fast);
 }
+
 .logo {
     font-family: var(--fuente-titulos);
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
     color: var(--color-principal);
     text-decoration: none;
 }
+
 .main-header nav a {
     color: var(--color-texto-sec);
     text-decoration: none;
-    margin-left: 2rem;
-    transition: color 0.3s ease;
+    margin-left: 2.5rem;
+    font-weight: 500;
+    transition: color var(--transition-fast);
 }
+
 .main-header nav a:hover {
     color: var(--color-principal);
 }
 
-/* --- Estructura Principal y Secciones --- */
+.main-footer {
+    padding: 2.5rem;
+    text-align: center;
+    color: var(--color-texto-sec);
+    font-size: 0.9rem;
+    background-color: transparent;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.social-links {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    color: var(--color-texto-sec);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+.social-links a:hover {
+    color: var(--color-principal);
+}
+
+
+/* ---------------------------------- */
+/* 3. LAYOUT PRINCIPAL Y SECCIONES    */
+/* ---------------------------------- */
 main {
     position: relative;
     z-index: 1;
+    overflow-x: hidden;
 }
+
 .content-section {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 100px 2rem;
-    background: var(--color-fondo); /* Fondo sólido para tapar el 3D y mejorar legibilidad */
-}
-.section-title {
-    font-family: var(--fuente-titulos);
-    font-size: 2.5rem;
-    color: var(--color-principal);
-    text-align: center;
-    margin-bottom: 3rem;
-    opacity: 0; /* Para animación de entrada */
+    padding: 120px 2rem;
 }
 
-/* --- Sección Hero --- */
+.section-title {
+    font-family: var(--fuente-titulos);
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    color: var(--color-principal);
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+
+/* ---------------------------------- */
+/* 4. ESTILOS DE LA PÁGINA PRINCIPAL  */
+/* ---------------------------------- */
+
+/* Hero Section */
 .hero-section {
     height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0 1rem;
-    background: transparent; /* Permite ver el canvas 3D */
+    padding: 0 2rem;
 }
+
 .hero-title {
     font-family: var(--fuente-titulos);
     font-size: clamp(2.5rem, 8vw, 5rem);
-    margin: 0;
+    font-weight: 600;
     color: var(--color-texto);
-    text-shadow: 0 0 20px rgba(0,0,0,0.7);
 }
+
+/* Clases para animación de texto con anime.js */
+.ml-hero .letter {
+    display: inline-block;
+    line-height: 1em;
+}
+
 .hero-subtitle {
     font-size: clamp(1rem, 3vw, 1.5rem);
     color: var(--color-texto-sec);
-    margin: 1rem 0 0;
+    margin-top: 1rem;
     max-width: 600px;
-    text-shadow: 0 0 10px rgba(0,0,0,0.7);
-}
-.animate-hero {
-    opacity: 0;
-    transform: translateY(30px);
-}
-.scroll-down-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 24px;
-    height: 40px;
-    border: 2px solid var(--color-texto-sec);
-    border-radius: 12px;
-}
-.scroll-down-indicator span {
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 8px;
-    background-color: var(--color-texto-sec);
-    border-radius: 2px;
-    animation: scroll-pulse 2s infinite;
-}
-@keyframes scroll-pulse {
-    0% { transform: translate(-50%, 0); opacity: 1; }
-    100% { transform: translate(-50%, 12px); opacity: 0; }
 }
 
-/* --- Sección Sobre Mí --- */
+/* About Section */
 .about-text {
     max-width: 800px;
     margin: 0 auto;
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-size: 1.15rem;
+    line-height: 1.8;
     text-align: center;
     color: var(--color-texto-sec);
 }
+
 .about-text strong {
     color: var(--color-principal);
     font-weight: 500;
 }
-.about-banner {
-    width: 100%;
-    max-width: 988px; /* Ancho de tu imagen */
-    height: auto;
-    border-radius: 12px;
-    margin: 0 auto 2rem auto;
-    display: block;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
 
-/* --- Proyectos --- */
+/* Projects Section */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
+    gap: 2.5rem;
 }
+
 .project-card {
     background: var(--color-fondo-sec);
     border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    opacity: 0; /* Para animación */
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
+
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.4);
 }
+
 .project-card img {
-    width: 100%; height: 200px;
+    width: 100%;
+    height: 200px;
     object-fit: cover;
+    border-radius: 12px 12px 0 0;
 }
-.card-content { padding: 1.5rem; }
+
+.card-content {
+    padding: 1.5rem;
+}
+
 .card-content h3 {
-    margin: 0 0 0.5rem;
-    font-family: var(--fuente-cuerpo);
-    font-weight: 700;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
     color: var(--color-texto);
 }
+
 .card-content p {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--color-texto-sec);
-    min-height: 65px;
-}
-.tech-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem; /* Aumentar espacio para los iconos */
-    margin-top: 1rem;
-    align-items: center;
+    font-size: 1rem;
+    line-height: 1.6;
     color: var(--color-texto-sec);
 }
-.tech-stack iconify-icon {
-    font-size: 1.5rem; /* Hacer los iconos más grandes */
-    transition: color 0.3s ease;
-}
-.project-card:hover .tech-stack iconify-icon {
-    color: var(--color-principal);
-}
-.tech-stack span {
-    background-color: rgba(217, 119, 6, 0.1);
-    color: var(--color-principal);
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-.project-links {
-    margin-top: 1.5rem;
-    display: flex;
-    gap: 1rem;
-}
-.project-links a {
-    color: var(--color-texto);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-.project-links a:hover { color: var(--color-principal); }
 
-
-/* --- Habilidades --- */
+/* Skills Section */
 .skills-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
+
 .skill-category {
     background: var(--color-fondo-sec);
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    opacity: 0; /* Para animación */
 }
+
 .skill-category h3 {
-    margin: 0 0 1rem;
+    margin: 0 0 1.5rem;
     color: var(--color-principal);
     font-family: var(--fuente-cuerpo);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
+    font-size: 1.2rem;
 }
+
 .skills-list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
 }
+
 .skills-list span {
     background-color: var(--color-fondo);
     padding: 0.5rem 1rem;
@@ -265,28 +279,19 @@ main {
     font-weight: 500;
 }
 
-/* --- Formulario de Contacto --- */
-.contact-subtitle {
-    text-align: center;
-    color: var(--color-texto-sec);
-    margin-top: -2rem;
-    margin-bottom: 2rem;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
+/* Contact Form */
 form {
     max-width: 700px;
     margin: 0 auto;
-    opacity: 0; /* Para animación */
 }
-.hidden { display: none; }
+
 .form-group {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
+
 form input, form textarea {
     width: 100%;
     padding: 1rem;
@@ -296,12 +301,15 @@ form input, form textarea {
     color: var(--color-texto);
     font-family: var(--fuente-cuerpo);
     font-size: 1rem;
+    transition: border-color var(--transition-fast);
 }
+
 form input:focus, form textarea:focus {
     outline: none;
     border-color: var(--color-principal);
 }
-.cta-button {
+
+form button {
     display: block;
     width: 100%;
     padding: 1rem;
@@ -309,43 +317,119 @@ form input:focus, form textarea:focus {
     color: var(--color-fondo);
     border: none;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.cta-button:hover {
-    background-color: #FBBF24; /* Naranja más claro */
+    transition: background-color var(--transition-fast);
 }
 
-/* --- Footer --- */
-.main-footer {
-    padding: 2rem;
+form button:hover {
+    background-color: var(--color-principal-brillo);
+}
+
+.hidden { display: none; }
+
+
+/* ---------------------------------- */
+/* 5. ESTILOS DE LAS PÁGINAS DE DETALLE */
+/* ---------------------------------- */
+.project-detail-page .project-hero {
+    padding-top: 150px;
+    padding-bottom: 80px;
     text-align: center;
-    color: var(--color-texto-sec);
-    font-size: 0.9rem;
-    background-color: var(--color-fondo);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-fondo-sec);
 }
-.social-links {
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-}
-.social-links a, .credits a {
-    color: var(--color-texto-sec);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-.social-links a:hover, .credits a:hover {
-    color: var(--color-principal);
-}
-.credits { font-size: 0.8rem; opacity: 0.7; }
 
-/* --- Media Queries para Diseño Responsivo --- */
+.project-detail-page h1 {
+    font-family: var(--fuente-titulos);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--color-principal);
+    margin-bottom: 1rem;
+}
+
+.project-detail-page .project-hero p {
+    font-size: 1.25rem;
+    color: var(--color-texto-sec);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.project-detail-page .project-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 2rem;
+}
+
+.project-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-content h2 {
+    font-family: var(--fuente-titulos);
+    font-size: 2rem;
+    color: var(--color-principal);
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+}
+
+.project-content p, .project-content ul {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-texto-sec);
+    margin-bottom: 1.5rem;
+}
+
+.project-content ul {
+    list-style-position: inside;
+    padding-left: 1rem;
+}
+
+.project-content li {
+    margin-bottom: 0.75rem;
+}
+
+
+/* ---------------------------------- */
+/* 6. ANIMACIONES Y CLASES DE UTILIDAD */
+/* ---------------------------------- */
+
+/* Estado inicial para los elementos que se animarán al hacer scroll */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Clase que se añade con JS cuando el elemento es visible */
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ---------------------------------- */
+/* 7. MEDIA QUERIES (RESPONSIVO)     */
+/* ---------------------------------- */
 @media (max-width: 768px) {
-    .section-title { font-size: 2rem; }
-    .skills-container, .form-group { grid-template-columns: 1fr; }
-    .main-header nav { display: none; } /* Simplificar en móvil o implementar menú hamburguesa */
+    .main-header nav {
+        display: none; /* En un futuro, aquí se puede implementar un menú de hamburguesa */
+    }
+
+    .content-section, .project-detail-page .project-content {
+        padding: 80px 1.5rem;
+    }
+
+    .form-group {
+        grid-template-columns: 1fr;
+    }
+}
+
+.project-link {
+    text-decoration: none; /* Quita el subrayado del enlace */
+    color: inherit;      /* Hace que el texto dentro herede el color normal */
+    display: block;        /* Permite que el enlace ocupe el espacio completo como un bloque */
 }
